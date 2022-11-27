@@ -1,7 +1,7 @@
 package main
 
 import (
-  "github.com/blorente/gofood/protos"
+  "github.com/blorente/gofood/server/pb"
   "log"
 )
 
@@ -10,5 +10,5 @@ func main() {
 }
 
 type server struct {
-
 }
+

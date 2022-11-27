@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-option go_package = "github.com/blorente/gofood/protos/suggestions";
-
 enum MealKind {
     Snack = 0;
     Breakfast = 1;

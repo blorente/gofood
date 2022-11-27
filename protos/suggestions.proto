@@ -9,29 +9,29 @@ enum MealKind {
 }
 
 message MealFood {
-    optional string name = 1;
-    optional int32 kcal = 3;
-    optional int32 grams = 2;
-    optional double protein_g = 4; 
-    optional double carbs_g = 5;
-    optional double fat_g = 6;
+    string name = 1;
+    int32 kcal = 3;
+    int32 grams = 2;
+    double protein_g = 4; 
+    double carbs_g = 5;
+    double fat_g = 6;
 }
 
 message MealSuggestion {
-    optional MealKind kind = 1;
-    optional string name = 2;
-    optional double total_kcal = 3;
-    optional MealFood foods = 7;
+    MealKind kind = 1;
+    string name = 2;
+    double total_kcal = 3;
+    repeated MealFood foods = 7;
 }
 
 message MealFilterParam {
-    optional string type = 1;
-    optional string value = 2;
+    string type = 1;
+    string value = 2;
 }
 
 message MealFilter {
-    optional string name = 1;
-    optional string function = 2;
+    string name = 1;
+    string function = 2;
     repeated MealFilterParam parameters = 3;
 }
 
@@ -41,14 +41,13 @@ service MealSuggester {
 }
 
 message SuggestMealRequest {
-    optional MealKind kind = 1;
+    MealKind kind = 1;
     repeated MealFilter filters = 2; 
 }
 
 message SuggestMealResponse {
     // TODO: Yes this is bad and pedestrian, but sue me.
-    optional string error = 1;
-    repeated MealSuggestion suggestions = 2;
+    repeated MealSuggestion suggestions = 1;
 }
 
 message GetMealFiltersRequest {
@@ -56,6 +55,5 @@ message GetMealFiltersRequest {
 
 message GetMealFiltersResponse {
     // TODO: Yes this is bad and pedestrian, but sue me.
-    optional string error = 1;
-    repeated MealFilter filters = 2;
+    repeated MealFilter filters = 1;
 }

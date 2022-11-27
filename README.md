@@ -14,3 +14,8 @@ Technologies:
 - Web: WebApp on top of Svelte
 - Deployment: My VPS.
 
+## TODO:
+- [ ] Filter by mealkind
+- [ ] Implement the rest of the server
+- [ ] Figure out filters
+- [ ] Configure datadir when deploying. Create deploy file?

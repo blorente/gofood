@@ -6,7 +6,6 @@ go_module_root="$2"
 repo_root=$(git rev-parse --show-toplevel)
 cd "${repo_root}"
 protos_root="${repo_root}/protos"
-set -x
 files=$(find ${protos_root} -type f -name "*.proto" | sed "s:${protos_root}/::")
 # TODO: TIdy this to avoid duplicating these sed calls
 go_module_mappings=$(echo "${files}" | \

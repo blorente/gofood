@@ -9,3 +9,4 @@ rm -rf "${server_root}/pb"
 mkdir "${server_root}/pb"
 ./protos/build.sh "${server_root}/pb" "github.com/blorente/gofood/server/pb"
 
+echo "✅ Protos generated to ${server_root}/pb"

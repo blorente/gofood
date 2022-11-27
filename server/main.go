@@ -1,27 +1,30 @@
 package main
 
 import (
-  pb "github.com/blorente/gofood/server/pb"
-  "google.golang.org/grpc"
-  "google.golang.org/grpc/reflection"
-  "log"
-  "net"
+	"fmt"
+	"log"
+
+	"github.com/pocketbase/pocketbase"
 )
 
-func main() {
-	log.Println("HI!")
-  listener, err := net.Listen("tcp", ":8080")
-  if err != nil {
-    log.Fatalln(err)
-  }
-  s := grpc.NewServer()
-  pb.RegisterMealSuggesterServer(s, &server{})
-  reflection.Register(s)
-  if err := s.Serve(listener); err != nil {
-    log.Fatalf("failed to serve: %v", err)
-  }
-}
-type server struct {
-  pb.UnimplementedMealSuggesterServer
+type logWriter struct {
 }
 
+func (writer logWriter) Write(bytes []byte) (int, error) {
+	return fmt.Print(" [🍰] " + string(bytes))
+}
+func configLogging() {
+	log.SetFlags(0)
+	log.SetOutput(new(logWriter))
+}
+
+func main() {
+	configLogging()
+	log.Println("Welcome!")
+	backend := pocketbase.New()
+	backend.RootCmd.AddCommand(NewGrpcCommand(backend))
+	if err := backend.Start(); err != nil {
+		log.Fatal(err)
+	}
+	log.Println("PocketBase Initialized!")
+}

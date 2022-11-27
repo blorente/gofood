@@ -1,0 +1,59 @@
+enum MealKind {
+    Snack = 0;
+    Breakfast = 1;
+    Lunch = 2;
+    Dinner = 3;
+    Dessert = 4;
+}
+
+message MealFood {
+    required string name = 1;
+    required int32 kcal = 3;
+    required int32 grams = 2;
+    required double protein_g = 4; 
+    required double carbs_g = 5;
+    required double fat_g = 6;
+}
+
+message MealSuggestion {
+    required MealKind kind = 1;
+    required string name = 2;
+    required double total_kcal = 3;
+    repeated MealFood foods = 7;
+}
+
+message MealFilterParam {
+    required string type = 1;
+    required string value = 2;
+}
+
+message MealFilter {
+    required string name = 1;
+    required string function = 2;
+    repeated MealFilterParam parameters = 3;
+}
+
+service MealSuggester {
+    rpc SuggestMeal (SuggestMealRequest) returns (SuggestMealResponse);
+    rpc GetMealFilters (GetMealFiltersRequest) returns (GetMealFiltersResponse);
+}
+
+message SuggestMealRequest {
+    required MealKind kind = 1;
+    repeated MealFilter filters = 2; 
+}
+
+message SuggestMealResponse {
+    // TODO: Yes this is bad and pedestrian, but sue me.
+    optional string error = 1;
+    repeated MealSuggestion suggestions = 2;
+}
+
+message GetMealFiltersRequest {
+}
+
+message GetMealFiltersResponse {
+    // TODO: Yes this is bad and pedestrian, but sue me.
+    optional string error = 1;
+    repeated MealFilter filters = 2;
+}

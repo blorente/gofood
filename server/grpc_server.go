@@ -50,9 +50,13 @@ func ToMealKind(kind string) pb.MealKind {
 	return pb.MealKind_Breakfast
 }
 
+func FromMealKind(kind pb.MealFilter) string {
+	return kind.Name
+}
+
 func (server *Server) SuggestMeal(ctx context.Context, req *pb.SuggestMealRequest) (*pb.SuggestMealResponse, error) {
 	log.Printf("Received request for meal with filter: %v", req.GetFilters())
-	meals, err := server.app.Dao().FindRecordsByExpr("meals", nil)
+	meals, err := server.app.Dao().FindRecordsByExpr("foods", nil)
 	if err != nil {
 		return nil, err
 	}
